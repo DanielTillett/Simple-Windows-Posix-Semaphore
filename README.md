@@ -4,9 +4,9 @@ POSIX semaphores allow processes and threads to synchronize their actions. A sem
 The *semaphore.c* & *semaphore.h* files provide replacement for POSIX semaphores on Windows XP or later. The provided **sem_** functions do not behave identically to their unix equivalents, but they will work as drop-in replacements for most use cases.
 
 ### Functions Provided
-int sem_init(sem_t *sem, int pshared, unsigned int value);
+- int sem_init(sem_t *sem, int pshared, unsigned int value);
 
-int sem_wait(sem_t *sem);
+- int sem_wait(sem_t *sem);
 
 int sem_trywait(sem_t *sem);
 
@@ -66,6 +66,6 @@ int sem_unlink(const char *name);
 	sem_close(sem);
 	return 0;
 	}
-### Requirement
+### Requirements
 
 There are no external requirements. Just add the two files (*semaphore.c* & *semaphore.h*) to your project and include the *semaphore.h* header.

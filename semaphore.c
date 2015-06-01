@@ -68,7 +68,7 @@ int sem_init(sem_t *sem, int pshared, unsigned int value) {
 		sprintf(buf, "Global\\%p", pv);
 		}
 
-	if ((pv->handle = CreateSemaphore(NULL, value, SEM_VALUE_MAX, buf)) == NULL) {
+	if ((pv->handle = CreateSemaphoreA(NULL, value, SEM_VALUE_MAX, buf)) == NULL) {
 		free(pv);
 		return lc_set_errno(ENOSPC);
 		}
@@ -300,7 +300,7 @@ sem_t *sem_open(const char *name, int oflag, mode_t mode, unsigned int value) {
 	memmove(buffer + 7, name, len);
 	buffer[len + 7] = '\0';
 
-	if ((pv->handle = CreateSemaphore(NULL, value, SEM_VALUE_MAX, buffer)) == NULL) {
+	if ((pv->handle = CreateSemaphoreA(NULL, value, SEM_VALUE_MAX, buffer)) == NULL) {
 		switch (GetLastError()) {
 			case ERROR_ACCESS_DENIED:
 				lc_set_errno(EACCES);
