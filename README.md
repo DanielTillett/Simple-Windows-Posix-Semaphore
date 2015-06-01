@@ -1,30 +1,30 @@
-##Simple POSIX Semaphore for Windows
-POSIX semaphores allow processes and threads to synchronize their actions. A semaphore is an integer whose value is never allowed to fall below zero.  Two operations can be performed on semaphores: increment the semaphore value by one (**sem_post**); and decrement the semaphore value by one (**sem_wait**). If the value of a semaphore is currently zero, then a **sem_wait** operation will block until the value becomes greater than zero.
+## Simple POSIX Semaphore for Windows
+POSIX semaphores allow processes and threads to synchronize their actions. A semaphore is an integer whose value is never allowed to fall below zero.  Two operations can be performed on semaphores: increment the semaphore value by one [**sem_post**]; and decrement the semaphore value by one [**sem_wait**]. If the value of a semaphore is currently zero, then a **sem_wait** operation will block until the value becomes greater than zero.
 
-The *semaphore.c* & *semaphore.h* files provide replacement for POSIX semaphores on Windows XP or later. The provided **sem_** functions do not behave identically to their unix equivalents, but they will work as drop-in replacements for most use cases.
+The *semaphore.c* & *semaphore.h* files provide replacement for POSIX semaphores on Windows XP or later. The provided **sem_** functions do not behave identically to their POSIX equivalents, but they will work as drop-in replacements for most use cases.
 
 ### Functions Provided
-- int sem_init(sem_t *sem, int pshared, unsigned int value);
+- int sem_init (sem_t \*sem, int pshared, unsigned int value);
 
-- int sem_wait(sem_t *sem);
+- int sem_wait (sem_t \*sem);
 
-int sem_trywait(sem_t *sem);
+- int sem_trywait (sem_t \*sem);
 
-int sem_timedwait(sem_t *sem, const struct timespec *abs_timeout);
+- int sem_timedwait (sem_t \*sem, const struct timespec \*abs_timeout);
 
-int sem_post(sem_t *sem);
+- int sem_post (sem_t *sem);
 
-int sem_getvalue(sem_t *sem, int *value);
+- int sem_getvalue (sem_t \*sem, int \*value);
 
-int sem_destroy(sem_t *sem);
+- int sem_destroy (sem_t \*sem);
 
-sem_t *sem_open(const char *name, int oflag, mode_t mode, unsigned int value);
+- sem_t \*sem_open (const char \*name, int oflag, mode_t mode, unsigned int value);
 
-int sem_close(sem_t *sem);
+- int sem_close (sem_t \*sem);
 
-int sem_unlink(const char *name);
+- int sem_unlink (const char \*name);
 
-###Example Use
+### Example
 
 	#include "semaphore.h"
 
@@ -68,4 +68,4 @@ int sem_unlink(const char *name);
 	}
 ### Requirements
 
-There are no external requirements. Just add the two files (*semaphore.c* & *semaphore.h*) to your project and include the *semaphore.h* header.
+There are no external requirements to use. Just add the two files (*semaphore.c* & *semaphore.h*) to your project and include the *semaphore.h* header in the source file(s) you wish to use semaphores.
