@@ -175,15 +175,19 @@ static int64_t lc_now_in_100ns(void) {
    rounding up so a wait never ends before the requested time and saturating
    instead of overflowing for far-future times. */
 static int64_t lc_timespec_to_100ns(const struct timespec *ts) {
-	if (ts->tv_sec < 0) {
+	/* Copy first: time_t is 32 bits on some CRTs, where comparing it with
+	   the limit below directly is always false and warns. */
+	int64_t sec = (int64_t) ts->tv_sec;
+
+	if (sec < 0) {
 		return 0;
 		}
 
-	if ((int64_t) ts->tv_sec >= INT64_MAX / HNS_PER_SEC - 1) {
+	if (sec >= INT64_MAX / HNS_PER_SEC - 1) {
 		return INT64_MAX;
 		}
 
-	return (int64_t) ts->tv_sec * HNS_PER_SEC + (ts->tv_nsec + NS_PER_HNS - 1) / NS_PER_HNS;
+	return sec * HNS_PER_SEC + (ts->tv_nsec + NS_PER_HNS - 1) / NS_PER_HNS;
 	}
 
 /**
